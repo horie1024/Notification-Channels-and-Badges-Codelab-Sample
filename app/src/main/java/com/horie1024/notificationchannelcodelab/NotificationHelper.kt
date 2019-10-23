@@ -10,8 +10,8 @@ import java.util.*
 internal class NotificationHelper(context: Context) : ContextWrapper(context) {
 
     companion object {
-        private const val FOLLOWERS_CHANNEL = "follower"
-        private const val DIRECT_MESSAGE_CHANNEL = "direct_message"
+        const val FOLLOWERS_CHANNEL = "follower"
+        const val DIRECT_MESSAGE_CHANNEL = "direct_message"
     }
 
     private val mNotificationManager: NotificationManager by lazy {
@@ -94,11 +94,11 @@ internal class NotificationHelper(context: Context) : ContextWrapper(context) {
      * @return A PendingIntent that opens the MainActivity
      */
     private // The stack builder object will contain an artificial back stack for the
-// started Activity.
-// This ensures that navigating backward from the Activity leads out of
-// your application to the Home screen.
-// Adds the back stack for the Intent (but not the Intent itself)
-// Adds the Intent that starts the Activity to the top of the stack
+    // started Activity.
+    // This ensures that navigating backward from the Activity leads out of
+    // your application to the Home screen.
+    // Adds the back stack for the Intent (but not the Intent itself)
+    // Adds the Intent that starts the Activity to the top of the stack
     val pendingIntent: PendingIntent
         get() {
             val openMainIntent = Intent(this, MainActivity::class.java)

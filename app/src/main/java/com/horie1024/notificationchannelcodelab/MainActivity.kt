@@ -6,6 +6,8 @@ import android.provider.Settings
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.horie1024.notificationchannelcodelab.NotificationHelper.Companion.DIRECT_MESSAGE_CHANNEL
+import com.horie1024.notificationchannelcodelab.NotificationHelper.Companion.FOLLOWERS_CHANNEL
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -43,25 +45,45 @@ class MainActivity : AppCompatActivity() {
      */
     private fun sendNotification(id: Int) {
         when (id) {
-            NOTIFICATION_FOLLOW -> mNotificationHelper.notify(id, mNotificationHelper.getNotificationFollower(
+            NOTIFICATION_FOLLOW -> mNotificationHelper.notify(
+                id, mNotificationHelper.getNotificationFollower(
                     getString(R.string.follower_title_notification),
-                    getString(R.string.follower_added_notification_body,
-                            mNotificationHelper.randomName)))
+                    getString(
+                        R.string.follower_added_notification_body,
+                        mNotificationHelper.randomName
+                    )
+                )
+            )
 
-            NOTIFICATION_UNFOLLOW -> mNotificationHelper.notify(id, mNotificationHelper.getNotificationFollower(
+            NOTIFICATION_UNFOLLOW -> mNotificationHelper.notify(
+                id, mNotificationHelper.getNotificationFollower(
                     getString(R.string.follower_title_notification),
-                    getString(R.string.follower_removed_notification_body,
-                            mNotificationHelper.randomName)))
+                    getString(
+                        R.string.follower_removed_notification_body,
+                        mNotificationHelper.randomName
+                    )
+                )
+            )
 
-            NOTIFICATION_DM_FRIEND -> mNotificationHelper.notify(id, mNotificationHelper.getNotificationDM(
+            NOTIFICATION_DM_FRIEND -> mNotificationHelper.notify(
+                id, mNotificationHelper.getNotificationDM(
                     getString(R.string.direct_message_title_notification),
-                    getString(R.string.dm_friend_notification_body,
-                            mNotificationHelper.randomName)))
+                    getString(
+                        R.string.dm_friend_notification_body,
+                        mNotificationHelper.randomName
+                    )
+                )
+            )
 
-            NOTIFICATION_DM_COWORKER -> mNotificationHelper.notify(id, mNotificationHelper.getNotificationDM(
+            NOTIFICATION_DM_COWORKER -> mNotificationHelper.notify(
+                id, mNotificationHelper.getNotificationDM(
                     getString(R.string.direct_message_title_notification),
-                    getString(R.string.dm_coworker_notification_body,
-                            mNotificationHelper.randomName)))
+                    getString(
+                        R.string.dm_coworker_notification_body,
+                        mNotificationHelper.randomName
+                    )
+                )
+            )
         }
 
     }
@@ -79,7 +101,10 @@ class MainActivity : AppCompatActivity() {
      * @param channel Name of channel to configure
      */
     private fun goToNotificationChannelSettings(channel: String) {
-        // Skeleton method to be completed later
+        val intent = Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
+        intent.putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
+        intent.putExtra(Settings.EXTRA_CHANNEL_ID, channel)
+        startActivity(intent)
     }
 
     /**
@@ -102,10 +127,14 @@ class MainActivity : AppCompatActivity() {
             when (view.id) {
                 R.id.follow_button -> sendNotification(NOTIFICATION_FOLLOW)
                 R.id.un_follow_button -> sendNotification(NOTIFICATION_UNFOLLOW)
-                R.id.follower_channel_settings_button -> goToNotificationChannelSettings("")
+                R.id.follower_channel_settings_button -> goToNotificationChannelSettings(
+                    FOLLOWERS_CHANNEL
+                )
                 R.id.friend_dm_button -> sendNotification(NOTIFICATION_DM_FRIEND)
                 R.id.coworker_dm_button -> sendNotification(NOTIFICATION_DM_COWORKER)
-                R.id.dm_channel_settings_button -> goToNotificationChannelSettings("")
+                R.id.dm_channel_settings_button -> goToNotificationChannelSettings(
+                    DIRECT_MESSAGE_CHANNEL
+                )
                 R.id.go_to_settings_button -> goToNotificationSettings()
                 else -> Log.e(TAG, getString(R.string.error_click))
             }
