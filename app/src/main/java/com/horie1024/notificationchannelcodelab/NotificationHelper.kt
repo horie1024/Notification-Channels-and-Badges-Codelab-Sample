@@ -11,6 +11,7 @@ internal class NotificationHelper(context: Context) : ContextWrapper(context) {
 
     companion object {
         private const val FOLLOWERS_CHANNEL = "follower"
+        private const val DIRECT_MESSAGE_CHANNEL = "direct_message"
     }
 
     private val mNotificationManager: NotificationManager by lazy {
@@ -36,6 +37,13 @@ internal class NotificationHelper(context: Context) : ContextWrapper(context) {
         // Submit the notification channel object to the notification manager
         mNotificationManager.createNotificationChannel(followersChannel)
 
+        val dmChannel = NotificationChannel(
+            DIRECT_MESSAGE_CHANNEL,
+            getString(R.string.notification_channel_direct_message),
+            NotificationManager.IMPORTANCE_HIGH
+        )
+        dmChannel.lightColor = Color.BLUE
+        mNotificationManager.createNotificationChannel(dmChannel)
     }
 
     /**
