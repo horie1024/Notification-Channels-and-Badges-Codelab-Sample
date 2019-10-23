@@ -59,7 +59,7 @@ internal class NotificationHelper(context: Context) : ContextWrapper(context) {
      * @return A Notification.Builder configured with the selected channel and details
      */
     fun getNotificationFollower(title: String, body: String): Notification.Builder {
-        return Notification.Builder(applicationContext)
+        return Notification.Builder(applicationContext, FOLLOWERS_CHANNEL)
             .setContentTitle(title)
             .setContentText(body)
             .setSmallIcon(smallIcon)
@@ -80,7 +80,7 @@ internal class NotificationHelper(context: Context) : ContextWrapper(context) {
      * @return A Notification.Builder configured with the selected channel and details
      */
     fun getNotificationDM(title: String, body: String): Notification.Builder {
-        return Notification.Builder(applicationContext)
+        return Notification.Builder(applicationContext, DIRECT_MESSAGE_CHANNEL)
             .setContentTitle(title)
             .setContentText(body)
             .setSmallIcon(smallIcon)
